@@ -27,9 +27,9 @@ define([
         zoom: 3,
         basemap: 'streets'
       });
-      this.map.on('load', lang.hitch(this, 'initWidgets')); //waint untill the map is loaded before creating
+      this.map.on('load', lang.hitch(this, 'initMapWidgets')); //waint untill the map is loaded before creating
     },
-    initWidgets: function() {
+    initMapWidgets: function() {
       //create controls div
       this.controlsNode = put(this.map.root, 'div.topLeftControls');
       //move the slider into the controls div
