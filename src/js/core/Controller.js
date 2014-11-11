@@ -7,11 +7,17 @@ define([
 
   'put-selector/put',
 
-  'dojo/_base/lang'
+  'dojo/_base/lang'//,
+
+  //'core/views/ControllerView'
 ], function(
   Map, HomeButton, LocateButton, Geocoder, BasemapToggle,
+
   put,
-  lang
+
+  lang//,
+
+  //ControllerView
 ) {
   return {
     startup: function(config) {
@@ -19,14 +25,12 @@ define([
       if (this.config.debug) {
         window.app = this;
       }
+      //this.view = new ControllerView();
       this.initMap();
     },
     initMap: function() {
-      this.map = new Map(put(document.body, 'div.map'), { //create a div in the body and create an esri map in it
-        center: [-56.049, 38.485],
-        zoom: 3,
-        basemap: 'streets'
-      });
+      //create a div in the body and create an esri map in it
+      this.map = new Map(put(document.body, 'div.mapContainer'), this.config.mapOptions);
       this.map.on('load', lang.hitch(this, 'initMapWidgets')); //waint untill the map is loaded before creating
     },
     initMapWidgets: function() {

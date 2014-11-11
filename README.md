@@ -19,3 +19,7 @@ Sublime Packages:
 4. SublimeLinter-csslint
 5. JsFormat
 6. SideBarEnhancments
+
+notes:
+http://stackoverflow.com/questions/15669091/bower-install-using-only-https
+`git config --global url."https://".insteadOf git://`
