@@ -10,7 +10,7 @@ define([
 	'dijit/layout/TabContainer',
 	'dijit/layout/ContentPane',
 
-	'core/widgets/Summary/Summary'
+	'core/widgets/Summary'
 ], function(
 	declare, lang, Stateful, Evented,
 
