@@ -6,7 +6,7 @@ Demonstrates the application controller method with Dojo and Esri.
 To get runing:
 
 1. install node
-2. Install globaly with npm: `stylus` `jshint` and `grunt-cli` ex: `npm install -g jshint`
+2. Install globaly with npm: `stylus` `jshint`, `grunt-cli`, `bower' ex: `npm install -g jshint`
 3. do an `npm install`
 4. run `grunt deps` to get js dependencies
 5. run `grunt` to start developing
