@@ -16,10 +16,12 @@ define([
 			this.inherited(arguments);
 			appModel.watch('clickedFeature', lang.hitch(this, 'dispaly'));
 		},
+		/* jshint unused: false */
 		dispaly: function(prop, oldValue, newValue) {
 			this.popNode.innerHTML = number.format(newValue.attributes.POP, {
 				plases: 0
 			});
 		}
+		/* jshint unused: true */
 	});
 });
