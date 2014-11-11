@@ -8,9 +8,9 @@ define([
 	config//,
 	//Controller
 ) {
-	var controller;
+	//var controller;
 	registerSuite({
-		name: 'constructor',
+		name: 'controller',
 		setup: function() {
 			//controller = new Controller(config);
 		},

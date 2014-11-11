@@ -23,19 +23,13 @@ define(['intern', 'intern/node_modules/dojo/has'], function(intern, has) {
 		// Browsers to run integration testing against. Note that version numbers must be strings if used with Sauce
 		// OnDemand. Options that will be permutated are browserName, version, platform, and platformVersion; any other
 		// capabilities options specified for an environment will be copied as-is
-		environments: JSON.parse(intern.args.environments),
+		environments: [],
 
 		// Maximum number of simultaneous integration tests that should be executed on the remote WebDriver service
 		maxConcurrency: 3,
 
 		// Whether or not to start Sauce Connect before running tests
 		useSauceConnect: false,
-
-		// Connection information for the remote WebDriver service.
-		webdriver: {
-			host: 'localhost',
-			port: 4445
-		},
 
 		// The desired AMD loader to use when running unit tests (client.html/client.js). Omit to use the default Dojo
 		// loader

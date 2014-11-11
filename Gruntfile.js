@@ -250,25 +250,13 @@ module.exports = function(grunt) {
       }
     },
     intern: {
-      dev: {
+      console: {
         options: {
+          runType: 'client',
           config: 'tests/intern',
-          runType: 'runner',
-          environments: '[{ "browserName": "phantomjs" }]',
-          tunnel: 'NullTunnel'
+          reporters: ['console'],
+          suites: [ 'tests/unit/controller' ]
         }
-      }
-    },
-    'selenium-launch': {
-      options: {
-        port: 4445,
-        jarDir: '../',
-        jar: 'selenium-server-standalone-2.42.0.jar'
-      }
-    },
-    phantom: {
-      options: {
-        port: 4445
       }
     }
   });
@@ -289,8 +277,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-open');
   grunt.loadNpmTasks('intern');
-  grunt.loadNpmTasks('grunt-se-launch');
-  grunt.loadNpmTasks('grunt-phantom');
 
   // Development Tasks
   grunt.registerTask('dev-assets', 'Copies the assets', ['newer:copy:dev']);
@@ -307,6 +293,6 @@ module.exports = function(grunt) {
   grunt.registerTask('dev', 'Validates and copies assets to the development build directory.', ['clean:dev', 'dev-assets', 'dev-stylesheets', 'dev-scripts']);
   grunt.registerTask('clean-dev', 'Cleans the development build directory', ['clean:dev']);
   grunt.registerTask('deps', 'Gets JS dependencies and slurps esri js.', ['exec:bower', 'esri_slurp:dev']);
-  grunt.registerTask('test', 'Run unit tests with intern', ['selenium-launch', 'intern:dev']);
+  grunt.registerTask('test', 'Run unit tests with intern', ['intern:console']);
   grunt.registerTask('default', 'Watches the project for changes, and automatically performs a development build.', ['dev', 'connect:dev', 'open:dev_browser', 'watch']);
 };

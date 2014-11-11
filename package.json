@@ -25,9 +25,7 @@
     "proxypage": "*",
     "grunt-esri-slurp": "*",
     "intern": "*",
-    "grunt-exec": "*",
-    "grunt-phantom": "0.2.x",
-    "grunt-se-launch": "0.1.x"
+    "grunt-exec": "*"
   },
   "engine": "node >= 0.10"
 }
