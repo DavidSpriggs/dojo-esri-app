@@ -8,13 +8,16 @@ define([
 
 	'dijit/layout/BorderContainer',
 	'dijit/layout/TabContainer',
-	'dijit/layout/ContentPane'
+	'dijit/layout/ContentPane',
+
+	'core/widgets/Summary/Summary'
 ], function(
 	declare, lang, Stateful, Evented,
 
 	put,
 
-	BorderContainer, TabContainer, ContentPane
+	BorderContainer, TabContainer, ContentPane,
+	Summary
 ) {
 	return declare([Evented, Stateful], {
 		constructor: function(params) {
@@ -36,9 +39,7 @@ define([
 			}).placeAt(this.borderContainer);
 			put(this.sidebar.domNode, '.layoutSidebar');
 
-			this.tab1 = new ContentPane({
-				title: 'Widget 1'
-			}).placeAt(this.sidebar);
+			this.tab1 = new Summary({}).placeAt(this.sidebar);
 
 			this.tab2 = new ContentPane({
 				title: 'Widget 2'

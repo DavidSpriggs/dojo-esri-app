@@ -4,25 +4,53 @@ define([
 	'esri/dijit/LocateButton',
 	'esri/dijit/Geocoder',
 	'esri/dijit/BasemapToggle',
+	'esri/layers/FeatureLayer',
+	//'esri/arcgis/utils',
 
 	'dojo/_base/declare',
 	'dojo/_base/lang',
 	'dojo/Stateful',
 	'dojo/Evented',
 
-	'put-selector/put'
+	'put-selector/put',
+
+	'core/models/appModel'
 ], function(
-	Map, HomeButton, LocateButton, Geocoder, BasemapToggle,
+	Map, HomeButton, LocateButton, Geocoder, BasemapToggle, FeatureLayer, // arcgisUtils,
 
 	declare, lang, Stateful, Evented,
 
-	put
+	put,
+
+	appModel
 ) {
 	return declare([Evented, Stateful], {
+		clickedFeature: [],
 		constructor: function(params, sourceNode) {
 			lang.mixin(this, params || {});
 			this.map = new Map(sourceNode, this.config.mapOptions);
-			this.map.on('load', lang.hitch(this, 'initMapWidgets'));
+			this.map.on('load', lang.hitch(this, 'init'));
+			this.appModel = appModel;
+			// arcgisUtils.createMap(this.config.webMapId, sourceNode, {
+			// 	mapOptions: this.config.mapOptions
+			// }).then(lang.hitch(this, 'createMapComplete'));
+		},
+		init: function() {
+			this.initMapLayers();
+			this.initMapWidgets();
+		},
+		createMapComplete: function(webMapResponse) {
+			this.webMap = webMapResponse;
+			this.map = webMapResponse.map;
+			this.initMapWidgets();
+		},
+		initMapLayers: function() {
+			this.portphfoiloFL = new FeatureLayer(this.config.portphfoiloServiceUrl, {
+				mode: FeatureLayer.MODE_AUTO,
+				outFields: '*'
+			});
+			this.portphfoiloFL.on('click', lang.hitch(this, 'updateClickedFeature'));
+			this.map.addLayer(this.portphfoiloFL);
 		},
 		initMapWidgets: function() {
 			//create controls div
@@ -52,6 +80,9 @@ define([
 				basemap: 'hybrid'
 			}, put(this.map.root, 'div.basemapToggle div'));
 			this.basemaToggle.startup();
+		},
+		updateClickedFeature: function(evt) {
+			appModel.set('clickedFeature', evt.graphic);
 		}
 	});
 });
