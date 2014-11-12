@@ -1,3 +1,4 @@
+/* jshint unused: true*/
 define([
 	'esri/map',
 	'esri/dijit/HomeButton',
@@ -11,6 +12,7 @@ define([
 	'dojo/_base/lang',
 	'dojo/Stateful',
 	'dojo/Evented',
+	'dojo/topic',
 
 	'put-selector/put',
 
@@ -18,7 +20,7 @@ define([
 ], function(
 	Map, HomeButton, LocateButton, Geocoder, BasemapToggle, FeatureLayer, // arcgisUtils,
 
-	declare, lang, Stateful, Evented,
+	declare, lang, Stateful, Evented, topic,
 
 	put,
 
@@ -30,12 +32,14 @@ define([
 			lang.mixin(this, params || {});
 			this.map = new Map(sourceNode, this.config.mapOptions);
 			this.map.on('load', lang.hitch(this, 'init'));
+			this.map.on('extent-change', lang.hitch(this, 'mapExtentChangeHandler'));
 			this.appModel = appModel;
 			// arcgisUtils.createMap(this.config.webMapId, sourceNode, {
 			// 	mapOptions: this.config.mapOptions
 			// }).then(lang.hitch(this, 'createMapComplete'));
 		},
 		init: function() {
+			topic.subscribe('map/centerAndZoom', lang.hitch(this, 'centerAndZoom'));
 			this.initMapLayers();
 			this.initMapWidgets();
 		},
@@ -51,6 +55,7 @@ define([
 			});
 			this.portphfoiloFL.on('click', lang.hitch(this, 'updateClickedFeature'));
 			this.map.addLayer(this.portphfoiloFL);
+			appModel.set('portphfoiloFL', this.portphfoiloFL);
 		},
 		initMapWidgets: function() {
 			//create controls div
@@ -83,6 +88,13 @@ define([
 		},
 		updateClickedFeature: function(evt) {
 			appModel.set('clickedFeature', evt.graphic);
+		},
+		mapExtentChangeHandler: function(evt) {
+			appModel.set('mapExtent', evt.extent);
+			appModel.set('mapLod', evt.lod);
+		},
+		centerAndZoom: function(caller, props) {
+			this.map.centerAndZoom(props.mapPoint, props.level);
 		}
 	});
 });

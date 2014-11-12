@@ -1,20 +1,23 @@
 define([
 	'dojo/_base/declare',
-	'dojo/Stateful'
+	'dojo/Stateful',
+	'dojo/_base/lang'
 ], function(
-	declare, Stateful
+	declare, Stateful, lang
 ) {
+	var model = {
+		clickedFeature: null,
+		mapExtent: null,
+		mapLod: null,
+		map: null
+	};
+
 	var SingletonClass = declare([Stateful], {
 		constructor: function() {
-			this.clickedFeature = null;
-		},
-		_clickedFeatureSetter: function(graphic) {
-			this.clickedFeature = graphic;
-		},
-		_clickedFeatureGetter: function() {
-			return this.clickedFeature;
+			lang.mixin(this, model);
 		}
 	});
+
 	if (!_instance) {
 		var _instance = new SingletonClass();
 	}
