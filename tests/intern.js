@@ -37,7 +37,7 @@ define(['intern', 'intern/node_modules/dojo/has'], function(intern, has) {
 		// 	'host-node': 'dojo/dojo',
 		// 	'host-browser': 'node_modules/dojo/dojo.js'
 		// },
-		reporters: ['console'],
+		reporters: ['console', 'html'],
 
 		// Configuration options for the module loader; any AMD configuration options supported by the specified AMD loader
 		// can be used here
